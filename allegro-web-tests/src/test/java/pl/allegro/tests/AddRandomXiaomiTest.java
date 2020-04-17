@@ -16,10 +16,12 @@ public class AddRandomXiaomiTest {
 
   @BeforeClass(alwaysRun = true)
   public void setUp() throws Exception {
+    System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE,"true");
+    System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE,"/dev/null");
     driver = new FirefoxDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    
+
   }
 
   @Test
