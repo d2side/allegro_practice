@@ -21,18 +21,38 @@ public class AddRandomXiaomiTest {
     driver = new FirefoxDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
+    driver.get("https://allegro.pl/");
+    driver.findElement(By.cssSelector("button[data-role='accept-consent']")).click();
   }
 
   @Test
   public void testAddRandomXiaomi() throws Exception {
-    driver.get("https://allegro.pl/");
+    clickOnGlobalSearch();
+    typeProductTitle();
+    confirmSearch();
+    selectFirstResultProduct();
+    goToCartAfterProductAdding();
+  }
+
+  private void selectFirstResultProduct() {
+    driver.findElement(By.xpath("//img[contains(@src,'https://a.allegroimg.com/s128/030058/9eb5ceba42a783c805ef2e7b53d3')]")).click();
+  }
+
+  private void goToCartAfterProductAdding() {
+    driver.findElement(By.linkText("przejdź do koszyka")).click();
+  }
+
+  private void confirmSearch() {
+    driver.findElement(By.name("string")).sendKeys(Keys.ENTER);
+  }
+
+  private void typeProductTitle() {
+    driver.findElement(By.name("string")).sendKeys("xiaomi");
+  }
+
+  private void clickOnGlobalSearch() {
     driver.findElement(By.name("string")).click();
     driver.findElement(By.name("string")).clear();
-    driver.findElement(By.name("string")).sendKeys("xiaomi");
-    driver.findElement(By.name("string")).sendKeys(Keys.ENTER);
-    driver.findElement(By.xpath("//img[contains(@src,'https://a.allegroimg.com/s128/030058/9eb5ceba42a783c805ef2e7b53d3')]")).click();
-    driver.findElement(By.linkText("przejdź do koszyka")).click();
   }
 
   @AfterClass(alwaysRun = true)
